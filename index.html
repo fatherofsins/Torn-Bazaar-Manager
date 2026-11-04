@@ -3,7 +3,8 @@
 <head><meta name="google-adsense-account" content="ca-pub-1242325694762331">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#14181d">
+<meta name="theme-color" content="#eceff2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111921" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -159,6 +160,136 @@ body.compact .cx{display:none}
 body.compact table{min-width:0}
 body.compact .out textarea{min-height:90px}
 </style>
+<style id="polish">
+/* ===== Polish layer: tokens ===== */
+:root{
+  color-scheme:light;
+  --bg:#eceff2;--panel:#fff;--raised:#f4f6f8;--line:#d4dae0;--text:#1b232b;--mute:#586471;
+  --brass:#8f6a14;--brass-bg:#f2e7c6;--good:#23703c;--bad:#b03a26;--bad-bg:#f9e4de;--ink:#1b232b;
+  --on-accent:#fff;--on-bad:#fff;--awn2:#243040;--ring:rgba(143,106,20,.32);
+  --r-sm:8px;--r-md:12px;--r-pill:999px;
+  --shadow:0 1px 2px rgba(20,32,44,.06),0 8px 20px -10px rgba(20,32,44,.22);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;
+  --bg:#111921;--panel:#18222c;--raised:#1f2b37;--line:#2b3a48;--text:#e3e9ee;--mute:#93a1ae;
+  --brass:#e0b85a;--brass-bg:#3a3017;--good:#79c08a;--bad:#ee8068;--bad-bg:#3b2520;--ink:#e3e9ee;
+  --on-accent:#1d1605;--on-bad:#2a0e08;--awn2:#3a4b5b;--ring:rgba(224,184,90,.35);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 20px -10px rgba(0,0,0,.55)}}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111921;--panel:#18222c;--raised:#1f2b37;--line:#2b3a48;--text:#e3e9ee;--mute:#93a1ae;
+  --brass:#e0b85a;--brass-bg:#3a3017;--good:#79c08a;--bad:#ee8068;--bad-bg:#3b2520;--ink:#e3e9ee;
+  --on-accent:#1d1605;--on-bad:#2a0e08;--awn2:#3a4b5b;--ring:rgba(224,184,90,.35);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 20px -10px rgba(0,0,0,.55)}
+
+/* ===== Base ===== */
+body{line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+::selection{background:var(--brass-bg);color:var(--text)}
+h1{font-size:clamp(1.6rem,4.5vw,2.25rem);letter-spacing:0}
+h2{font-size:1.5rem;letter-spacing:0}
+.table{scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+
+/* ===== Signature: shop awning under the header ===== */
+header{position:relative;z-index:2;background:var(--panel);border-bottom:0;padding-block:20px}
+header::after{
+  content:"";position:absolute;left:0;right:0;top:100%;height:13px;pointer-events:none;
+  background:
+    radial-gradient(circle at 14px 0,var(--brass) 0 13px,transparent 13.5px) 0 0/56px 13px repeat-x,
+    radial-gradient(circle at 42px 0,var(--awn2) 0 13px,transparent 13.5px) 0 0/56px 13px repeat-x;
+}
+main{padding-top:38px}
+.logo{filter:drop-shadow(0 1px 0 rgba(0,0,0,.08))}
+
+/* ===== Surfaces: one radius per role, quiet elevation ===== */
+.stat,.panel,.set,.add,.chartbox,.table{border-radius:var(--r-md);box-shadow:var(--shadow)}
+.stat,.panel,.set{border-left:1px solid var(--line)}
+.panel.safe{border-left:4px solid var(--bad)}
+.stat{padding:14px 16px}
+.stat span{font-size:.85rem}
+.stat b{font-size:clamp(1.4rem,4.6vw,1.75rem);line-height:1.15;letter-spacing:-.01em;font-variant-numeric:tabular-nums;margin-top:2px}
+.panel .big{letter-spacing:-.01em}
+.lowbar{border-radius:var(--r-sm)}
+.empty{line-height:1.6}
+
+/* ===== Buttons: clear hierarchy ===== */
+button,a.btn{border-radius:var(--r-sm);min-height:40px;border-color:var(--line);
+  transition:background-color .15s,border-color .15s,transform .1s,box-shadow .15s}
+button:active,a.btn:active{transform:scale(.98)}
+button.main{background:var(--brass);border-color:var(--brass);color:var(--on-accent)}
+button.main:hover{border-color:var(--brass);filter:brightness(1.08)}
+button.ghost,a.btn.ghost{background:transparent}
+button:hover,a.btn:hover{border-color:var(--mute)}
+button.ghost:hover,a.btn.ghost:hover{background:var(--raised)}
+button.ic{min-height:40px;min-width:40px;border-color:transparent}
+button.ic:hover{background:var(--raised);border-color:transparent}
+button.sm{min-height:32px;border-radius:var(--r-sm)}
+button.danger{color:var(--on-bad)}
+button.danger:hover{filter:brightness(1.08);border-color:var(--bad)}
+button:disabled{opacity:.45;filter:none;transform:none}
+button:focus-visible,a.btn:focus-visible,summary:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+
+/* ===== Inputs ===== */
+.field{border-radius:var(--r-sm);min-height:42px;transition:border-color .15s,box-shadow .15s}
+.field:focus-within{outline:0;border-color:var(--brass);box-shadow:0 0 0 3px var(--ring)}
+.add label input:focus,.add label select:focus,.set label.in input:focus,.set label.in select:focus{border-bottom-color:var(--brass)}
+.go select,.chartbox select{border-radius:var(--r-sm)}
+.out textarea{border-radius:var(--r-sm)}
+.out textarea:focus{outline:0;border-color:var(--brass);box-shadow:0 0 0 3px var(--ring)}
+
+/* ===== Switch ===== */
+.sw span{border-radius:var(--r-pill);transition:background-color .15s}
+.sw span::after{border-radius:50%;box-shadow:0 1px 2px rgba(0,0,0,.35)}
+.sw input:checked+span{background:var(--good)}
+
+/* ===== Tabs ===== */
+.tabs{border-bottom:1px solid var(--line);gap:4px}
+.tabs button{border-radius:var(--r-sm) var(--r-sm) 0 0;min-height:44px;font-size:1.1rem}
+.tabs button:hover{background:var(--raised);border-color:transparent}
+.tabs button[aria-selected="true"]{color:var(--text);border-bottom-color:var(--brass)}
+
+/* ===== Tables ===== */
+thead th{background:var(--raised)}
+th{font-size:.8rem;padding:12px 14px}
+td{padding:12px 14px}
+tbody tr{transition:background-color .12s}
+tbody tr:hover td{background:var(--raised)}
+tr.low:hover td{background:var(--bad-bg)}
+.tag{border-radius:var(--r-sm)}
+.pill{text-transform:none;letter-spacing:0;background:var(--bad-bg);padding:1px 8px;border-radius:var(--r-pill);font-size:.75rem}
+
+/* ===== Charts ===== */
+#chart .cb{rx:3px}
+.tl .tr{border-radius:var(--r-pill);overflow:hidden}
+.tl .tr i{border-radius:inherit}
+
+/* ===== Overlays ===== */
+.toast{border-radius:var(--r-sm);box-shadow:var(--shadow)}
+.alarmBox{border-radius:14px}
+.fab{border-radius:var(--r-pill);bottom:calc(108px + env(safe-area-inset-bottom,0px));right:12px;padding:12px 16px;min-height:48px}
+.toast{bottom:calc(108px + env(safe-area-inset-bottom,0px))}
+body.compact main{padding-top:30px}
+.watermark-credit{border-radius:var(--r-pill)}
+
+/* ===== Phones ===== */
+@media (max-width:640px){
+  main{padding-top:32px}
+  .stats{gap:10px}
+  .stat{padding:12px 14px}
+}
+@media (prefers-reduced-motion:reduce){
+  button,a.btn,.field,.sw span,tbody tr{transition:none}
+  button:active,a.btn:active{transform:none}
+}
+/* ===== Shop watch ===== */
+td{vertical-align:middle}
+.stk{vertical-align:middle;display:inline-block;padding:1px 10px;border-radius:var(--r-pill);font-size:.8rem;font-weight:600;white-space:nowrap}
+.stk.in{background:rgba(47,125,70,.16);color:var(--good)}
+.stk.out{background:var(--raised);color:var(--mute)}
+input.mini{width:72px;border:1px solid var(--line);border-radius:var(--r-sm);padding:6px 8px;background:transparent}
+input.mini:focus{outline:0;border-color:var(--brass);box-shadow:0 0 0 3px var(--ring)}
+#pShops .bar{gap:14px}
+</style>
 </head>
 <body>
 
@@ -253,6 +384,7 @@ body.compact .out textarea{min-height:90px}
     <button role="tab" aria-selected="true" data-tab="Stock">Stock</button>
     <button role="tab" aria-selected="false" data-tab="Sales">Sales &amp; profit</button>
     <button role="tab" aria-selected="false" data-tab="Deps">Deposits</button>
+    <button role="tab" aria-selected="false" data-tab="Shops">Shop watch</button>
   </div>
 
   <div id="pStock">
@@ -324,6 +456,20 @@ body.compact .out textarea{min-height:90px}
     <div class="table"><table><thead><tr><th>Date</th><th>Amount</th><th>Destination</th><th></th></tr></thead><tbody id="dRows"></tbody></table>
     <div class="empty" id="dEmpty"><svg class="i"><use href="#i-vault"/></svg>No deposits logged. Use Mark as moved after you move the money.</div></div>
   </div>
+  <div id="pShops" hidden>
+    <div class="bar">
+      <label class="sw"><input type="checkbox" id="shopOn"><span></span>Watch NPC shops</label>
+      <label>Check every <select id="shopEvery" style="width:auto;border:1px solid var(--line);padding:6px 8px"><option value="10">10 seconds</option><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="60">1 minute</option></select></label>
+      <span id="shopStat">Off.</span>
+      <span class="sp"></span>
+      <button class="ghost" id="shopCity"><svg class="i"><use href="#i-plane"/></svg>Open Torn city</button>
+    </div>
+    <label class="field" style="margin-bottom:12px"><svg class="i"><use href="#i-search"/></svg><input id="shopQ" placeholder="Search NPC shop items to watch" aria-label="Search NPC shop items"></label>
+    <div class="table" id="shopResBox" hidden style="margin-bottom:14px"><table><tbody id="shopRes"></tbody></table></div>
+    <div class="table" id="shopWLBox" hidden><table><thead><tr><th>Item</th><th>Shop</th><th>Price</th><th>Stock</th><th>Alert at</th><th></th></tr></thead><tbody id="shopWL"></tbody></table></div>
+    <div class="empty" id="shopEmpty"><svg class="i"><use href="#i-bell"/></svg>Nothing watched yet. Search for an item above and press Watch. You will be alerted the moment it is back in stock.</div>
+    <p class="note">This only alerts you. It never buys anything, so you open Torn and buy it yourself. How fast alerts arrive depends on how quickly Torn updates its shop data.</p>
+  </div>
 </main>
 
 <button class="danger gobtn fab" id="fab" hidden><svg class="i"><use href="#i-vault"/></svg><span id="fabLbl">GO</span></button>
@@ -367,12 +513,13 @@ body.compact .out textarea{min-height:90px}
   </section>
   <h2>Info</h2>
   <div class="table"><table style="min-width:0"><tbody>
-    <tr><th>Data storage</th><td style="white-space:normal">Everything (stock, costs, sales, deposits, settings) is stored only in your own browser on this device. Nothing is sent to any server run by this app.</td></tr>
-    <tr><th>Data sharing</th><td style="white-space:normal">None. Your data is not shared with anyone.</td></tr>
+    <tr><th>Data storage</th><td style="white-space:normal">Everything (stock, costs, sales, deposits, settings) is stored only in your own browser on this device. Your bazaar, sales, costs and key are never sent to any server run by this app.</td></tr>
+    <tr><th>Data sharing</th><td style="white-space:normal">Your bazaar, sales and deposit data is not shared with anyone. The only data a third party receives is what Google gets when you visit the site, explained under Third parties.</td></tr>
     <tr><th>Purpose of use</th><td style="white-space:normal">Track your bazaar stock, sales, profit and deposits, and alert you when something sells.</td></tr>
-    <tr><th>Key storage and sharing</th><td style="white-space:normal">Your API key is saved in this browser only and is sent only to Torn (api.torn.com). It is never shared with anyone else.</td></tr>
+    <tr><th>Key storage and sharing</th><td style="white-space:normal">Your API key is saved in this browser only and is sent only to Torn (api.torn.com). This app never sends it anywhere else. Pages can technically read what they store, and this page also loads Google ad code, so use Forget key in the menu if you stop using the app or share the device.</td></tr>
     <tr><th>Key access level</th><td style="white-space:normal">Limited Access is needed to import your bazaar, read your cash on hand and track sales. A Public key is enough for market values and lowest prices. Full Access is never needed.</td></tr>
-    <tr><th>API use</th><td style="white-space:normal">The sale tracker checks once every 5 seconds (12 calls a minute), well under Torn's limit of 100 per minute.</td></tr>
+    <tr><th>Third parties</th><td style="white-space:normal">Google Fonts (the typeface) and Google AdSense (ads) load from Google servers. Google may see your IP address and device details and may set cookies, under its own privacy policy. This app does not send your bazaar data or API key to Google.</td></tr>
+    <tr><th>API use</th><td style="white-space:normal">The sale tracker checks once every 5 seconds (12 calls a minute). Shop watch, when on, reads Torn's NPC shop stock (torn cityshops) every 10 to 60 seconds. Together this stays well under Torn's limit of 100 per minute. Shop watch only alerts you and never buys anything.</td></tr>
   </tbody></table></div>
   <p class="note">This is an unofficial tool and is not affiliated with Torn. Sales are estimated from changes in your bazaar stock, so check amounts before you deposit. Deposits are never made automatically.</p>
 </main>
@@ -851,6 +998,115 @@ body.compact .out textarea{min-height:90px}
   setInterval(function(){if(wallet.ts)$("walletAge").textContent="Updated "+ago(wallet.ts)+(cfg.on?"":" · tracker off")},5000);
 
   /* ---------- Tabs & ledger actions ---------- */
+  /* ---------- Shop watch: NPC shop restock alerts (read-only) ---------- */
+  var SW=load("tornShops",{on:false,every:15,list:[]}),shopSnap=load("tornShopSnap",{}),shopData=[],shopBusy=false,shopT=null;
+  function shopSave(){store("tornShops",SW);store("tornShopSnap",shopSnap)}
+  function parseShops(d){
+    var out=[],sh=d.cityshops||{};
+    Object.keys(sh).forEach(function(sid){
+      var s=sh[sid],inv=s.inventory||{};
+      Object.keys(inv).forEach(function(iid){
+        var it=inv[iid];
+        out.push({key:sid+":"+iid,name:it.name||("Item "+iid),shop:s.name||("Shop "+sid),price:+it.price||0,stock:+it.in_stock||0});
+      });
+    });
+    return out;
+  }
+  function stkChip(q,min){return q>=min?'<span class="stk in">In stock: '+q.toLocaleString("en-US")+'</span>':'<span class="stk out">Out of stock</span>'}
+  function renderShops(){
+    var m={};shopData.forEach(function(r){m[r.key]=r});
+    $("shopWL").innerHTML=SW.list.map(function(w,i){
+      var r=m[w.key];
+      return '<tr><td><div class="nm">'+esc(w.name)+'</div></td><td>'+esc(w.shop)+'</td><td class="n">'+(r?money(r.price):"–")+'</td><td>'+
+        (r?stkChip(r.stock,w.min):'<span class="stk out">Unknown</span>')+'</td><td><input class="mini" type="number" min="1" value="'+w.min+'" data-min="'+i+'" aria-label="Alert when stock reaches"></td>'+
+        '<td><button class="ic" data-rm="'+i+'" aria-label="Stop watching '+esc(w.name)+'">'+icon("i-trash")+'</button></td></tr>';
+    }).join("");
+    $("shopEmpty").hidden=SW.list.length>0;$("shopWLBox").hidden=!SW.list.length;
+  }
+  function renderShopRes(){
+    var q=$("shopQ").value.trim().toLowerCase(),box=$("shopResBox");
+    if(!q||!shopData.length){box.hidden=true;return}
+    var have={};SW.list.forEach(function(w){have[w.key]=1});
+    var res=shopData.filter(function(r){return !have[r.key]&&(r.name.toLowerCase().indexOf(q)>-1||r.shop.toLowerCase().indexOf(q)>-1)}).slice(0,12);
+    $("shopRes").innerHTML=res.map(function(r){
+      return '<tr><td><div class="nm">'+esc(r.name)+'</div></td><td>'+esc(r.shop)+'</td><td class="n">'+money(r.price)+'</td><td>'+stkChip(r.stock,1)+'</td><td><button class="ghost sm" data-add="'+esc(r.key)+'">Watch</button></td></tr>';
+    }).join("")||'<tr><td>No matching items</td></tr>';
+    box.hidden=false;
+  }
+  function alertShops(rs){
+    var txt=rs.map(function(r){return r.name+" x"+r.qty+" at "+r.shop+" ("+money(r.price)+")"}).join(", ");
+    toast("In stock: "+txt);
+    if(cfg.sound)chime();
+    if(cfg.flash)showAlarm(false);
+    try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
+    if(cfg.notify)rs.slice(0,5).forEach(function(r,i){showNote("In stock: "+r.name,r.qty+" available at "+r.shop+" for "+money(r.price)+" each. Open Torn to buy.","shop-"+Date.now()+"-"+i)});
+  }
+  function onShopData(list){
+    shopData=list;var m={},back=[];list.forEach(function(r){m[r.key]=r});
+    SW.list.forEach(function(w){
+      var r=m[w.key],q=r?r.stock:0,was=shopSnap[w.key];
+      if(r){w.name=r.name;w.shop=r.shop}
+      if(was!==undefined&&was<w.min&&q>=w.min)back.push({name:w.name,shop:w.shop,qty:q,price:r?r.price:0});
+      shopSnap[w.key]=q;
+    });
+    shopSave();renderShops();renderShopRes();
+    if(back.length)alertShops(back);
+  }
+  function shopStatus(t){$("shopStat").textContent=t}
+  function shopPoll(manual){
+    var k=key(true);
+    if(!k){if(manual)toast("Add your API key in the menu first");return Promise.resolve()}
+    if(shopBusy)return Promise.resolve();shopBusy=true;
+    return fetch(API+"/torn/?selections=cityshops&key="+encodeURIComponent(k))
+      .then(function(r){return r.json()})
+      .then(function(d){
+        if(d.error){var e=new Error(d.error.error);e.code=d.error.code;throw e}
+        var list=parseShops(d);if(!list.length)throw new Error("No shop data returned");
+        onShopData(list);
+        if(SW.on)shopStatus("Watching "+SW.list.length+" item"+(SW.list.length===1?"":"s")+". Last check "+new Date().toLocaleTimeString([],{timeStyle:"short"})+".");
+      })
+      .catch(function(e){
+        if([2,10,13,16,18].indexOf(e.code)>-1){SW.on=false;$("shopOn").checked=false;shopSave();restartShop();shopStatus("Stopped: "+e.message+".");toast("Shop watch stopped: "+e.message);return}
+        shopStatus(e.message==="Failed to fetch"?"Could not reach Torn. Retrying.":e.message+". Retrying.");
+      })
+      .then(function(){shopBusy=false});
+  }
+  function restartShop(){
+    clearInterval(shopT);shopT=null;
+    if(!SW.on){shopStatus("Off.");return}
+    if(!SW.list.length){shopStatus("Add an item to watch.");return}
+    shopStatus("Starting…");shopPoll(true);
+    shopT=setInterval(function(){shopPoll(false)},SW.every*1000);
+  }
+  $("shopOn").checked=!!SW.on;$("shopEvery").value=String(SW.every);
+  $("shopOn").onchange=function(){
+    SW.on=this.checked;shopSave();
+    if(SW.on&&cfg.notify&&"Notification" in window&&Notification.permission==="default")askPerm();
+    restartShop();
+  };
+  $("shopEvery").onchange=function(){SW.every=+this.value;shopSave();restartShop()};
+  $("shopCity").onclick=function(){window.open("https://www.torn.com/city.php","_blank","noopener")};
+  $("shopQ").oninput=function(){if(!shopData.length)shopPoll(true).then(renderShopRes);else renderShopRes()};
+  $("shopRes").onclick=function(e){
+    var b=e.target.closest("button");if(!b||!b.dataset.add)return;
+    var r=shopData.filter(function(x){return x.key===b.dataset.add})[0];if(!r)return;
+    SW.list.push({key:r.key,name:r.name,shop:r.shop,min:1});shopSnap[r.key]=r.stock;shopSave();
+    toast(r.stock>0?r.name+" is already in stock ("+r.stock+")":"Watching "+r.name);
+    $("shopQ").value="";renderShopRes();renderShops();
+    if(!SW.on){SW.on=true;$("shopOn").checked=true;shopSave()}
+    restartShop();
+  };
+  $("shopWL").onclick=function(e){
+    var b=e.target.closest("button");if(!b||b.dataset.rm===undefined)return;
+    var w=SW.list.splice(+b.dataset.rm,1)[0];if(w)delete shopSnap[w.key];shopSave();renderShops();restartShop();
+  };
+  $("shopWL").onchange=function(e){
+    var i=e.target.dataset.min;if(i===undefined)return;
+    SW.list[+i].min=Math.max(1,parseInt(e.target.value)||1);shopSave();renderShops();
+  };
+  document.addEventListener("visibilitychange",function(){if(!document.hidden&&SW.on&&SW.list.length)shopPoll(false)});
+  renderShops();if(SW.on&&load("tornKey",""))restartShop();else if(SW.on){SW.on=false;$("shopOn").checked=false;shopSave()}
+
   document.querySelector(".tabs").onclick=function(e){
     var b=e.target.closest("button");if(!b)return;
     [].forEach.call(this.children,function(x){var on=x===b;x.setAttribute("aria-selected",on);$("p"+x.dataset.tab).hidden=!on});
